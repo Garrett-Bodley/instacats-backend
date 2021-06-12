@@ -16,9 +16,8 @@ ActiveRecord::Schema.define(version: 2021_06_11_211406) do
   enable_extension "plpgsql"
 
   create_table "cat_pics", force: :cascade do |t|
+    t.string "uid"
     t.string "description"
-    t.string "thumbnail"
-    t.string "source"
     t.integer "viewcount"
     t.boolean "animated"
     t.datetime "posted_at"
