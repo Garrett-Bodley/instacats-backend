@@ -4,7 +4,6 @@ namespace :scrape do
 
   desc "Scrape all possible cat pics."
   task cats_all: :environment do
-    include PicParser
     Rake::Task['scrape:cats_new'].execute
     Rake::Task['scrape:cats_top:load_all'].execute
   end
@@ -57,7 +56,6 @@ namespace :scrape do
 
     desc "Scrape top cat pics from every possible time period."
     task load_all: :environment do
-      include PicParser
       ['day', 'week', 'month', 'year', 'all_time'].each{|period| Rake::Task["scrape:cats_top:#{period}"].execute}
       puts "Loading complete"
     end
