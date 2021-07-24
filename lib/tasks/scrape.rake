@@ -17,11 +17,11 @@ namespace :scrape do
     PicParser.scrape(NEW_URL)
   end
 
-  desc "Scrape upload dates of all CatPics"
+  desc "Scrape upload datetime of any CatPics in the database where posted_at == nil."
   task posted_at: :environment do
     include DateParser
-    DateParser.scrape(CatPic.all)
-    puts "Dates scraped!"
+    DateParser.scrape(CatPic.where(posted_at: nil))
+    puts "\nPost dates scraped!"
   end
 
   namespace :cats_top do
