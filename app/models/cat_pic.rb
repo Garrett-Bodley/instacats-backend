@@ -1,5 +1,6 @@
 class CatPic < ApplicationRecord
   validates :imgur_id, uniqueness: true
+  scope :order_by_new, -> { order(posted_at: :desc) }
 
   def self.get_random
     CatPic.order(Arel.sql('RANDOM()')).limit(1)[0]
