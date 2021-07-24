@@ -3,10 +3,11 @@ require 'date_parser'
 
 namespace :scrape do
 
-  desc "Scrape all possible cat pics."
+  desc "Scrape all possible cat pics and when they were posted."
   task cats_all: :environment do
     Rake::Task['scrape:cats_new'].execute
     Rake::Task['scrape:cats_top:load_all'].execute
+    Rake::Task['scrape:posted_at']
   end
 
   desc "Scrape cat pics sorted by new."
@@ -17,7 +18,7 @@ namespace :scrape do
     PicParser.scrape(NEW_URL)
   end
 
-  desc "Scrape upload datetime of any CatPics in the database where posted_at == nil."
+  desc "Scrape post time of all CatPics in the database where posted_at == nil."
   task posted_at: :environment do
     include DateParser
     DateParser.scrape(CatPic.where(posted_at: nil))
