@@ -1,4 +1,5 @@
 require 'pic_parser'
+require 'date_parser'
 
 namespace :scrape do
 
@@ -14,6 +15,13 @@ namespace :scrape do
     puts "Scraping new cat pics."
     NEW_URL = 'https://imgur.com/r/cats/new'
     PicParser.scrape(NEW_URL)
+  end
+
+  desc "Scrape upload dates of all CatPics"
+  task posted_at: :environment do
+    include DateParser
+    DateParser.scrape(CatPic.all)
+    puts "Dates scraped!"
   end
 
   namespace :cats_top do
