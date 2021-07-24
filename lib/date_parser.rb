@@ -43,7 +43,12 @@ module DateParser
       pic.posted_at = post_datetime
       pic.save
     rescue => e
-      binding.pry
+      browser.visit(pic.src_url)
+      wait_to_load(driver)
+      if browser.current_url == "https://i.imgur.com/removed.png"
+        puts "\nDestroying Pic ##{pic.id}"
+        pic.destroy
+      end
     end
 
   end
