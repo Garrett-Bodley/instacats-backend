@@ -6,9 +6,9 @@ module DateParser
     config
     browser = Capybara.current_session
     driver = browser.driver.browser
-    puts "Scraping....."
+    puts "Scraping #{pics.count} pics..."
     pics.each_with_index do |pic, index|
-      print "\rParsing Pic ##{index + 1}" 
+      print "\rParsing ##{index + 1}" 
       parse_date(pic, browser, driver)
     end
 
