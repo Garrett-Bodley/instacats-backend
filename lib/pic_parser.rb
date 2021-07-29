@@ -10,12 +10,22 @@ module PicParser
       html = HTTParty.get(base_url + "/page/#{page_num}")
       doc = Nokogiri::HTML(html.body)
       posts = doc.css('div.post:not(.empty)')
-      
-      posts.each do |post|
-        parsed = parse_data(post)
-        CatPic.exists?(parsed) ? CatPic.update(parsed) : CatPic.create(parsed)
+      unless posts.count == 0
+        posts.each do |post|
+          parsed = parse_data(post)
+          if pic = CatPic.find_by_imgur_id(parsed[:imgur_id])
+            pic.update(parsed)
+            if pic.save
+              print "\rUpdated pic ##{pic.id}                  " 
+            else
+              print "\rPic ##{pic.id} is up to date!"
+            end
+          else 
+            print "\rCreating a new CatPic.                 " if CatPic.create(parsed)
+          end
+        end
+        puts ""
       end
-
       page_num += 1
     end
 
