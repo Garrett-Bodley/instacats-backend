@@ -13,16 +13,22 @@ namespace :scrape do
   desc "Scrape cat pics sorted by new."
   task cats_new: :environment do
     include PicParser
+    # ActiveRecord::Base.logger = Logger.new(STDOUT).tap{|l| l.level = :info}
     puts "Scraping new cat pics."
     NEW_URL = 'https://imgur.com/r/cats/new'
     PicParser.scrape(NEW_URL)
   end
 
-  desc "Scrape post time of all CatPics in the database where posted_at == nil."
+  desc "Scrape posted_at info for all Cat Pics where the value is nil."
   task posted_at: :environment do
     include DateParser
-    DateParser.scrape(CatPic.where(posted_at: nil))
-    puts "\nPost dates scraped!"
+    pics = CatPic.where(posted_at: nil)
+    if(pics.length > 0)
+      DateParser.scrape(CatPic.where(posted_at: nil))
+      puts "\nPost dates scraped!"
+    else
+      puts "All cat pics in the database have a posted_at value."
+    end
   end
 
   namespace :cats_top do
@@ -66,7 +72,6 @@ namespace :scrape do
     desc "Scrape top cat pics from every possible time period."
     task load_all: :environment do
       ['day', 'week', 'month', 'year', 'all_time'].each{|period| Rake::Task["scrape:cats_top:#{period}"].execute}
-      puts "Loading complete"
     end
 
   end
