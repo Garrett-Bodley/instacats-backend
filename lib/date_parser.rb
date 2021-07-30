@@ -49,7 +49,22 @@ module DateParser
         pic.destroy
       end
     end
+  end
 
+  def check_if_removed(pics)
+    config
+    browser = Capybara.current_session
+    driver = browser.driver.browser
+    puts "Scraping #{pics.count} pics..."
+    pics.each_with_index do |pic, index|
+      print "\rChecking ##{index + 1}" 
+      browser.visit(pic.src_url)
+      wait_to_load(driver)
+      if browser.current_url == "https://i.imgur.com/removed.png"
+        puts "\nDestroying Pic ##{pic.id}"
+        pic.destroy
+      end
+    end
   end
 
 end
