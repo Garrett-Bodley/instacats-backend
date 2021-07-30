@@ -24,7 +24,7 @@ namespace :scrape do
     include DateParser
     pics = CatPic.where(posted_at: nil)
     if(pics.length > 0)
-      DateParser.scrape(CatPic.where(posted_at: nil))
+      DateParser.scrape(pics)
       puts "\nPost dates scraped!"
     else
       puts "All cat pics in the database have a posted_at value."
