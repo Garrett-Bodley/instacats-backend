@@ -3,11 +3,12 @@ require 'date_parser'
 
 namespace :scrape do
 
-  desc "Scrape all possible cat pics and when they were posted."
+  desc "Scrape all possible cat pics, when they were posted, and check if any have been removed."
   task cats_all: :environment do
     Rake::Task['scrape:cats_new'].execute
     Rake::Task['scrape:cats_top:load_all'].execute
-    Rake::Task['scrape:posted_at']
+    Rake::Task['scrape:posted_at'].execute
+    Rake::Task['scrape:check_if_removed'].execute
   end
 
   desc "Scrape cat pics sorted by new."
