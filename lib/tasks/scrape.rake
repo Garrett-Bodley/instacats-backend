@@ -31,6 +31,12 @@ namespace :scrape do
     end
   end
 
+  desc "Check if image has been removed from imgur."
+  task check_if_removed: :environment do
+    include DateParser
+    DateParser.check_if_removed(CatPic.order_by_new)
+  end
+
   namespace :cats_top do
     TOP_URL = "https://imgur.com/r/cats/top"
 
