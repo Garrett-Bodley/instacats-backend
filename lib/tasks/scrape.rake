@@ -34,7 +34,9 @@ namespace :scrape do
   desc "Check if image has been removed from imgur."
   task check_if_removed: :environment do
     include DateParser
+    count = CatPic.count
     DateParser.check_if_removed(CatPic.order_by_new)
+    puts "All pics have been checked! #{count - CatPic.count} image(s) were no longer valid."
   end
 
   namespace :cats_top do
