@@ -28,7 +28,7 @@ namespace :scrape do
       DateParser.scrape(pics)
       puts "\nPost dates scraped!"
     else
-      puts "All cat pics in the database have a posted_at value."
+      puts "\nAll cat pics in the database have a posted_at value."
     end
   end
 
@@ -37,7 +37,7 @@ namespace :scrape do
     include DateParser
     count = CatPic.count
     DateParser.check_if_removed(CatPic.order_by_new)
-    puts "All pics have been checked! #{count - CatPic.count} image(s) were no longer valid."
+    puts "\nAll pics have been checked! #{count - CatPic.count} image(s) were no longer valid."
   end
 
   namespace :cats_top do
