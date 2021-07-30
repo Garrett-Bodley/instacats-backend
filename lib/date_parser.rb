@@ -11,7 +11,6 @@ module DateParser
       print "\rParsing ##{index + 1}" 
       parse_date(pic, browser, driver)
     end
-
   end
 
   def config
