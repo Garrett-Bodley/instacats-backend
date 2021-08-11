@@ -1,6 +1,10 @@
 class CatPic < ApplicationRecord
   validates :imgur_id, uniqueness: true
-  belongs_to :post
+
+  belongs_to :user
+  has_many :comments
+  has_many :likes, as: :likeable
+  
   scope :order_by_new, -> { order(posted_at: :desc) }
 
   def self.get_random

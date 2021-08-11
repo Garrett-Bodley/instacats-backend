@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
-  has_many :posts
+  has_many :cat_pics
   has_many :comments
   has_many :likes
 

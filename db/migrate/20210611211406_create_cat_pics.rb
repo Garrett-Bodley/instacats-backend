@@ -6,6 +6,7 @@ class CreateCatPics < ActiveRecord::Migration[6.1]
       t.integer :viewcount
       t.boolean :animated
       t.datetime :posted_at
+      t.belongs_to :user
 
       t.timestamps
     end
