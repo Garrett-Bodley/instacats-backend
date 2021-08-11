@@ -37,8 +37,8 @@ module DateParser
     wait_to_load(driver)
 
     begin
-      span = browser.find('div.post-title-meta span')
-      post_datetime = DateTime.parse(span[:title])
+      time = browser.find('div.post-title-meta time')
+      post_datetime = DateTime.parse(time[:title])
       pic.posted_at = post_datetime
       pic.save
     rescue => e
