@@ -6,6 +6,7 @@ class CatPic < ApplicationRecord
   has_many :likes, as: :likeable
   
   scope :order_by_new, -> { order(posted_at: :desc) }
+  scope :order_by_likes, -> { joins(:likes).group('cat_pics.id').order('COUNT(likes.likeable_id) DESC')}
 
   def self.get_random
     CatPic.order(Arel.sql('RANDOM()')).limit(1)[0]
