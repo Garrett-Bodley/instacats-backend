@@ -19,7 +19,13 @@ class CatPicSerializer < ActiveModel::Serializer
   end
 
   def user
-    object.user.username if !!object.user
+    if !!object.user
+      serialized = {
+        id: object.user.id,
+        username: object.user.username
+      }
+      return serialized 
+    end
   end
 
 end
