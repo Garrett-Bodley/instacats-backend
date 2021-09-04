@@ -2,8 +2,8 @@ class CatPic < ApplicationRecord
   validates :imgur_id, uniqueness: true
 
   belongs_to :user
-  has_many :comments
-  has_many :likes, as: :likeable
+  has_many :comments, dependent: :destroy
+  has_many :likes, as: :likeable, dependent: :destroy
   
   scope :order_by_new, -> { order(posted_at: :desc) }
   scope :order_by_likes, -> { joins(:likes).group('cat_pics.id').order('COUNT(likes.likeable_id) DESC')}
