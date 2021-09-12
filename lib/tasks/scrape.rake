@@ -14,7 +14,6 @@ namespace :scrape do
   desc "Scrape cat pics sorted by new."
   task cats_new: :environment do
     include PicParser
-    # ActiveRecord::Base.logger = Logger.new(STDOUT).tap{|l| l.level = :info}
     puts "Scraping new cat pics."
     NEW_URL = 'https://imgur.com/r/cats/new'
     PicParser.scrape(NEW_URL)
