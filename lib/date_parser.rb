@@ -35,9 +35,8 @@ module DateParser
 
     browser.visit(pic.page_url)
     wait_to_load(driver)
-
     begin
-      time = browser.find('div.post-title-meta time')
+      time = browser.find('time.nodisplay')
       post_datetime = DateTime.parse(time[:title])
       pic.posted_at = post_datetime
       pic.save
